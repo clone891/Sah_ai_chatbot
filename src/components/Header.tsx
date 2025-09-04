@@ -46,15 +46,21 @@ export function Header({ isSidebarVisible, toggleSidebar }: HeaderProps) {
         </Button>
 
         <div
-          className="relative px-4 py-2 rounded-2xl border-2 border-white/20 hover:border-white/40 hover:scale-110 transition-all duration-300 ease-out cursor-pointer hover:shadow-lg overflow-hidden"
+          className="relative px-4 py-2 rounded-2xl border-2 border-white/20 hover:border-white/40 hover:scale-110 transition-all duration-300 ease-out cursor-pointer hover:shadow-lg overflow-hidden flex items-center gap-2"
           style={{ backgroundColor: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(10px)' }}
           onClick={() => window.location.href = '/'}
         >
+          <img
+            src="https://cdn.builder.io/api/v1/image/assets%2F32a7517d76b941f98c61312e3af1852a%2F6a39e12b078049088a0866e5389412e1?format=webp&width=800"
+            alt="App logo"
+            className="relative z-10 h-7 w-7 object-contain"
+            loading="eager"
+            decoding="async"
+          />
           <span className="relative z-10 text-xl font-bold text-white">
             Sahai
           </span>
 
-          {/* Shimmer overlay for entire div */}
           <motion.div
             className="absolute inset-0 pointer-events-none"
             style={{
