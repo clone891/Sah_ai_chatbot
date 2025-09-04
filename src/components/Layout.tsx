@@ -4,13 +4,15 @@ import { Header } from "./Header"
 import { Sidebar } from "./Sidebar"
 import { CursorGradient } from "./CursorGradient"
 import { useTheme } from "./ThemeProvider"
+import { useLocation } from "react-router-dom"
 
 interface LayoutProps {
   children: React.ReactNode
 }
 
 export function Layout({ children }: LayoutProps) {
-  const [isSidebarVisible, setIsSidebarVisible] = useState(true)
+  const location = useLocation()
+  const [isSidebarVisible, setIsSidebarVisible] = useState(location.pathname !== "/")
   const { theme } = useTheme()
 
   const toggleSidebar = () => {
