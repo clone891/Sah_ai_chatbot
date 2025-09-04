@@ -1,8 +1,10 @@
-import { Moon, Sun, Menu, X } from "lucide-react"
+import { Moon, Sun, Menu, X, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useTheme } from "./ThemeProvider"
 import { motion } from "framer-motion"
 import { ShinyText } from "./ShinyText"
+import { useAuth } from "@/context/AuthContext"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
 interface HeaderProps {
   isSidebarVisible: boolean
@@ -11,6 +13,7 @@ interface HeaderProps {
 
 export function Header({ isSidebarVisible, toggleSidebar }: HeaderProps) {
   const { theme, setTheme } = useTheme()
+  const { isAuthenticated, user, logout } = useAuth()
 
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light")
@@ -88,6 +91,7 @@ export function Header({ isSidebarVisible, toggleSidebar }: HeaderProps) {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.2 }}
+        className="flex items-center gap-2"
       >
         <Button
           variant="ghost"
@@ -101,6 +105,41 @@ export function Header({ isSidebarVisible, toggleSidebar }: HeaderProps) {
             <Moon className="h-5 w-5" />
           )}
         </Button>
+
+        {!isAuthenticated ? (
+          <div className="hidden sm:flex items-center gap-2">
+            <Button
+              variant="secondary"
+              className="rounded-xl"
+              onClick={() => (window.location.href = "/login")}
+            >
+              Log in
+            </Button>
+            <Button
+              className="rounded-xl"
+              onClick={() => (window.location.href = "/signup")}
+            >
+              Sign up
+            </Button>
+          </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/80 shadow">
+              <Avatar className="h-8 w-8">
+                <AvatarFallback>
+                  {String(user?.name || user?.email || "U").split(" ").map((s: string) => s[0]).join("")?.slice(0,2).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <span className="text-sm font-medium text-gray-800 hidden md:inline-block max-w-[180px] truncate">
+                {user?.name || user?.email || "Account"}
+              </span>
+            </div>
+            <Button variant="ghost" className="rounded-xl" onClick={logout}>
+              <LogOut className="h-4 w-4 mr-1" />
+              Logout
+            </Button>
+          </div>
+        )}
       </motion.div>
     </motion.header>
   )
