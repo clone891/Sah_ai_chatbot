@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 
 // Import all pages
 import ChatPage from "./pages/ChatPage";
+import LandingPage from "./pages/LandingPage";
 import EmergencyPage from "./pages/EmergencyPage";
 import ProgressPage from "./pages/ProgressPage";
 import BookingPage from "./pages/BookingPage";
@@ -36,7 +37,8 @@ const App = () => (
           <BrowserRouter>
             <Layout>
               <Routes>
-                <Route path="/" element={<ChatPage />} />
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/chat" element={<ChatPage />} />
                 <Route path="/emergency" element={<EmergencyPage />} />
                 <Route path="/progress" element={<ProgressPage />} />
                 <Route path="/booking" element={<BookingPage />} />

@@ -15,7 +15,7 @@ import {
 import { cn } from "@/lib/utils"
 
 const navigationItems = [
-  { id: "chat", path: "/", icon: MessageCircle, label: "Sahai bot" },
+  { id: "chat", path: "/chat", icon: MessageCircle, label: "Sahai bot" },
   { id: "emergency", path: "/emergency", icon: AlertTriangle, label: "Emergency Contact Requirements" },
   { id: "progress", path: "/progress", icon: TrendingUp, label: "Your Progress" },
   { id: "booking", path: "/booking", icon: Calendar, label: "Counselling Booking System" },
