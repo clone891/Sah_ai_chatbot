@@ -6,10 +6,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Layout } from "@/components/Layout";
 import { motion } from "framer-motion";
+import { AuthProvider } from "@/context/AuthContext";
 
 // Import all pages
 import ChatPage from "./pages/ChatPage";
 import LandingPage from "./pages/LandingPage";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 import EmergencyPage from "./pages/EmergencyPage";
 import ProgressPage from "./pages/ProgressPage";
 import BookingPage from "./pages/BookingPage";
@@ -35,21 +38,25 @@ const App = () => (
           className="h-screen w-full"
         >
           <BrowserRouter>
-            <Layout>
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/chat" element={<ChatPage />} />
-                <Route path="/emergency" element={<EmergencyPage />} />
-                <Route path="/progress" element={<ProgressPage />} />
-                <Route path="/booking" element={<BookingPage />} />
-                <Route path="/wellness" element={<WellnessPage />} />
-                <Route path="/support" element={<SupportPage />} />
-                <Route path="/help" element={<HelpPage />} />
-                <Route path="/summary" element={<SummaryPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Layout>
+            <AuthProvider>
+              <Layout>
+                <Routes>
+                  <Route path="/" element={<LandingPage />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/signup" element={<SignupPage />} />
+                  <Route path="/chat" element={<ChatPage />} />
+                  <Route path="/emergency" element={<EmergencyPage />} />
+                  <Route path="/progress" element={<ProgressPage />} />
+                  <Route path="/booking" element={<BookingPage />} />
+                  <Route path="/wellness" element={<WellnessPage />} />
+                  <Route path="/support" element={<SupportPage />} />
+                  <Route path="/help" element={<HelpPage />} />
+                  <Route path="/summary" element={<SummaryPage />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Layout>
+            </AuthProvider>
           </BrowserRouter>
         </motion.div>
       </ThemeProvider>
