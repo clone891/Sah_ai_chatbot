@@ -94,13 +94,23 @@ const LandingPage = () => {
         </motion.div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
-          <Button
-            size="lg"
-            className="rounded-xl px-8 py-6 text-lg shadow-lg hover:scale-105 transition"
-            onClick={() => navigate("/chat")}
-          >
-            Enter Sahai
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <Button
+              size="lg"
+              className="rounded-xl px-8 py-6 text-lg shadow-lg hover:scale-105 transition"
+              onClick={() => navigate("/chat")}
+            >
+              Enter Sahai
+            </Button>
+            <div className="flex items-center gap-2">
+              <Button variant="secondary" className="rounded-xl" onClick={() => navigate("/login")}>
+                Log in
+              </Button>
+              <Button className="rounded-xl" onClick={() => navigate("/signup")}>
+                Sign up
+              </Button>
+            </div>
+          </div>
         </motion.div>
       </div>
 
