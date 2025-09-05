@@ -12,7 +12,8 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   const location = useLocation()
-  const [isSidebarVisible, setIsSidebarVisible] = useState(location.pathname !== "/")
+  const hideNavRoutes = ["/", "/login", "/signup"]
+  const [isSidebarVisible, setIsSidebarVisible] = useState(!hideNavRoutes.includes(location.pathname))
   const { theme } = useTheme()
 
   const toggleSidebar = () => {
@@ -21,7 +22,9 @@ export function Layout({ children }: LayoutProps) {
 
   return (
     <CursorGradient className={`h-screen w-full flex flex-col ${theme === 'dark' ? 'cursor-gradient-dark' : ''}`}>
-      <Header isSidebarVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
+      {!hideNavRoutes.includes(location.pathname) && (
+        <Header isSidebarVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
+      )}
 
       <div className="flex flex-1 relative overflow-hidden justify-start items-start">
         {/* Toggleable Sidebar */}
