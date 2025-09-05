@@ -61,12 +61,12 @@ export default function SignupPage() {
           className="h-8 w-auto"
         />
       </div>
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-xs rounded-2xl border p-3 backdrop-blur-sm gradient-card shadow-[var(--shadow-medium)]">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-3xl">
         <h1 className="text-xl font-bold mb-1">Create account</h1>
         <p className="text-xs text-muted-foreground mb-4">Join Sahai</p>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-          <div className="space-y-3 rounded-md border p-2">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col md:flex-row items-center justify-center gap-3 mx-auto">
+          <div className="space-y-3 rounded-md border p-2 w-full max-w-xs">
             <div className="space-y-2">
               <Label htmlFor="firstName">First name</Label>
               <Input id="firstName" className="h-10" placeholder="Your first name" {...register("firstName")} />
@@ -79,7 +79,7 @@ export default function SignupPage() {
             </div>
           </div>
 
-          <div className="space-y-3 rounded-md border p-2">
+          <div className="space-y-3 w-full max-w-xs rounded-2xl border p-3 backdrop-blur-sm gradient-card shadow-[var(--shadow-medium)]">
             <div className="space-y-2">
               <Label htmlFor="username">Username</Label>
               <Input id="username" className="h-10" placeholder="Choose a username" {...register("username")} />
