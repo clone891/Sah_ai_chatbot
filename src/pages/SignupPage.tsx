@@ -62,8 +62,9 @@ export default function SignupPage() {
         />
       </div>
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-3xl">
-        <h1 className="text-xl font-bold mb-1">Create account</h1>
-        <p className="text-xs text-muted-foreground mb-4">Join Sahai</p>
+        <div className="w-full rounded-2xl border p-4 md:p-6 backdrop-blur-sm gradient-card shadow-[var(--shadow-medium)]">
+          <h1 className="text-xl font-bold mb-1">Create account</h1>
+          <p className="text-xs text-muted-foreground mb-4">Join Sahai</p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col md:flex-row items-center justify-center gap-3 mx-auto">
           <div className="space-y-3 rounded-md border p-2 w-full max-w-xs">
@@ -109,6 +110,7 @@ export default function SignupPage() {
         <p className="mt-4 text-sm text-muted-foreground">
           Already have an account? <Link to="/login" className="underline">Sign in</Link>
         </p>
+        </div>
       </motion.div>
     </div>
   )
