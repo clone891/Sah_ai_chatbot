@@ -67,7 +67,7 @@ export default function SignupPage() {
           <p className="text-xs text-muted-foreground mb-4">Join Sahai</p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col md:flex-row items-center justify-center gap-3 mx-auto">
-          <div className="space-y-3 rounded-md border p-2 w-full max-w-xs">
+          <div className="space-y-3 rounded-md border p-2 w-full max-w-xs" style={{ backgroundColor: '#8b7cb2' }}>
             <div className="space-y-2">
               <Label htmlFor="firstName">First name</Label>
               <Input id="firstName" className="h-10" placeholder="Your first name" {...register("firstName")} />
@@ -80,7 +80,7 @@ export default function SignupPage() {
             </div>
           </div>
 
-          <div className="space-y-3 rounded-md border p-2 w-full max-w-xs">
+          <div className="space-y-3 rounded-md border p-2 w-full max-w-xs" style={{ backgroundColor: '#9182b8' }}>
             <div className="space-y-2">
               <Label htmlFor="username">Username</Label>
               <Input id="username" className="h-10" placeholder="Choose a username" {...register("username")} />
