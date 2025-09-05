@@ -11,7 +11,12 @@ import { Link, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 
 const schema = z.object({
-  name: z.string().min(2, "Name is required"),
+  username: z
+    .string()
+    .min(3, "Username must be at least 3 characters")
+    .regex(/^[a-zA-Z0-9_.-]+$/, "Only letters, numbers, underscores, dots, and dashes"),
+  firstName: z.string().min(2, "First name is required"),
+  lastName: z.string().min(2, "Last name is required"),
   email: z.string().email("Enter a valid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
   confirm: z.string().min(6),
@@ -33,7 +38,7 @@ export default function SignupPage() {
   const onSubmit = async (values: FormValues) => {
     setSubmitting(true)
     try {
-      await signup({ name: values.name, email: values.email, password: values.password })
+      await signup({ name: `${values.firstName} ${values.lastName}`, email: values.email, password: values.password })
       toast.success("Account created")
       navigate("/profile")
     } catch (e: any) {
@@ -51,9 +56,19 @@ export default function SignupPage() {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
-            <Input id="name" placeholder="Your name" {...register("name")} />
-            {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
+            <Label htmlFor="username">Username</Label>
+            <Input id="username" placeholder="Choose a username" {...register("username")} />
+            {errors.username && <p className="text-sm text-destructive">{errors.username.message}</p>}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="firstName">First name</Label>
+            <Input id="firstName" placeholder="Your first name" {...register("firstName")} />
+            {errors.firstName && <p className="text-sm text-destructive">{errors.firstName.message}</p>}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="lastName">Last name</Label>
+            <Input id="lastName" placeholder="Your last name" {...register("lastName")} />
+            {errors.lastName && <p className="text-sm text-destructive">{errors.lastName.message}</p>}
           </div>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
