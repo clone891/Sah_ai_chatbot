@@ -51,15 +51,17 @@ export default function SignupPage() {
 
   return (
     <div className="h-screen w-full grid place-items-center p-4 relative">
-      <div className="absolute top-4 left-4">
-        <Button variant="ghost" onClick={() => navigate("/")}> <ArrowLeft className="h-4 w-4 mr-2" /> Back</Button>
-      </div>
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-xs rounded-2xl border p-4 backdrop-blur-sm gradient-card shadow-[var(--shadow-medium)]">
+      <div className="absolute top-4 left-4 flex items-center gap-2">
+        <Button variant="ghost" onClick={() => navigate("/")}>
+          <ArrowLeft className="h-4 w-4 mr-2" /> Back
+        </Button>
         <img
           src="https://cdn.builder.io/api/v1/image/assets%2F32a7517d76b941f98c61312e3af1852a%2F53b5b2631496451f9497061e0706b217?format=webp&width=800"
           alt="Sahai logo"
-          className="w-24 mx-auto mb-4"
+          className="h-8 w-auto"
         />
+      </div>
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-xs rounded-2xl border p-4 backdrop-blur-sm gradient-card shadow-[var(--shadow-medium)]">
         <h1 className="text-2xl font-bold mb-1">Create account</h1>
         <p className="text-sm text-muted-foreground mb-6">Join Sahai</p>
 
