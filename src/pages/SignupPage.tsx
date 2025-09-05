@@ -79,7 +79,7 @@ export default function SignupPage() {
             </div>
           </div>
 
-          <div className="space-y-3 w-full max-w-xs rounded-2xl border p-3 backdrop-blur-sm gradient-card shadow-[var(--shadow-medium)]">
+          <div className="space-y-3 rounded-md border p-2 w-full max-w-xs">
             <div className="space-y-2">
               <Label htmlFor="username">Username</Label>
               <Input id="username" className="h-10" placeholder="Choose a username" {...register("username")} />
