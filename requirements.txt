@@ -1,0 +1,10 @@
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+python-multipart==0.0.6
+aiohttp==3.9.0
+googletrans==4.0.0rc1
+openai-whisper==20231117
+gtts==2.4.0
+python-dotenv==1.0.0
+langdetect==1.0.9
