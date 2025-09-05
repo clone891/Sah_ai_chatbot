@@ -1,4 +1,11 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react"
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
 
 const API = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api/"
 
@@ -8,18 +15,33 @@ export type AuthState = {
   loading: boolean
   isAuthenticated: boolean
   login: (input: { email: string; password: string }) => Promise<void>
-  signup: (input: { name?: string; email: string; password: string }) => Promise<void>
+  signup: (input: {
+    username: string
+    firstName: string
+    lastName: string
+    email: string
+    password: string
+    confirm: string
+  }) => Promise<void>
   logout: () => void
   refreshProfile: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthState | undefined>(undefined)
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [token, setToken] = useState<string | null>(() => localStorage.getItem("auth_token"))
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [token, setToken] = useState<string | null>(() =>
+    localStorage.getItem("auth_token")
+  )
   const [user, setUser] = useState<any | null>(() => {
     const v = localStorage.getItem("auth_user")
-    try { return v ? JSON.parse(v) : null } catch { return null }
+    try {
+      return v ? JSON.parse(v) : null
+    } catch {
+      return null
+    }
   })
   const [loading, setLoading] = useState(false)
 
@@ -32,60 +54,86 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }
 
-  const login = useCallback(async (input: { email: string; password: string }) => {
-    setLoading(true)
-    try {
-      const res = await fetch(API + "auth/token/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: input.email,  // Django expects username
-          password: input.password
+  // login
+  const login = useCallback(
+    async (input: { email: string; password: string }) => {
+      setLoading(true)
+      try {
+        const res = await fetch(API + "auth/token/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: input.email, // Django uses "username" field even if it's actually an email
+            password: input.password,
+          }),
         })
-      })
-      if (!res.ok) {
-        const err = await res.json()
-        throw new Error(err.detail || "Login failed")
+        if (!res.ok) {
+          const err = await res.json()
+          throw new Error(err.detail || "Login failed")
+        }
+        const data = await res.json() // { access, refresh }
+        persist({ user: { email: input.email }, token: data.access })
+      } finally {
+        setLoading(false)
       }
-      const data = await res.json()  // { access, refresh }
-      persist({ user: { email: input.email }, token: data.access })
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+    },
+    []
+  )
 
-  const signup = useCallback(async (input: { name?: string; email: string; password: string }) => {
-    setLoading(true)
-    try {
-      const res = await fetch(API + "auth/register/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: input.name,
-          email: input.email,
-          password: input.password
+  // signup (register → auto-login)
+  const signup = useCallback(
+    async (input: {
+      username: string
+      firstName: string
+      lastName: string
+      email: string
+      password: string
+      confirm: string
+    }) => {
+      setLoading(true)
+      try {
+        const res = await fetch(API + "auth/register/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(input),
         })
-      })
 
-      if (!res.ok) {
-        const errorData = await res.json()
-        throw new Error(errorData.detail || "Signup failed")
+        if (!res.ok) {
+          const errorData = await res.json()
+          throw new Error(errorData.detail || "Signup failed")
+        }
+
+        // Auto-login after signup
+        const loginRes = await fetch(API + "auth/token/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: input.username,
+            password: input.password,
+          }),
+        })
+
+        if (!loginRes.ok) {
+          const loginError = await loginRes.json()
+          throw new Error(loginError.detail || "Auto-login after signup failed")
+        }
+
+        const loginData = await loginRes.json()
+        persist({
+          user: {
+            email: input.email,
+            username: input.username,
+            firstName: input.firstName,
+            lastName: input.lastName,
+          },
+          token: loginData.access,
+        })
+      } finally {
+        setLoading(false)
       }
-
-      // after signup, automatically log in
-      const data = await res.json()
-      // Optionally, call /auth/token/ to get JWT
-      const loginRes = await fetch(API + "auth/token/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: input.name, password: input.password })
-      })
-      const loginData = await loginRes.json()
-      persist({ user: { email: input.email, name: input.name }, token: loginData.access })
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+    },
+    []
+  )
 
   const logout = useCallback(() => {
     setToken(null)
@@ -98,7 +146,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!token) return
     try {
       const res = await fetch(API + "me/", {
-        headers: { Authorization: "Bearer " + token }
+        headers: { Authorization: "Bearer " + token },
       })
       if (!res.ok) return
       const me = await res.json()
@@ -115,16 +163,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [token, user, refreshProfile])
 
-  const value = useMemo<AuthState>(() => ({
-    user,
-    token,
-    loading,
-    isAuthenticated: Boolean(token),
-    login,
-    signup,
-    logout,
-    refreshProfile
-  }), [user, token, loading, login, signup, logout, refreshProfile])
+  const value = useMemo<AuthState>(
+    () => ({
+      user,
+      token,
+      loading,
+      isAuthenticated: Boolean(token),
+      login,
+      signup,
+      logout,
+      refreshProfile,
+    }),
+    [user, token, loading, login, signup, logout, refreshProfile]
+  )
 
   return (
     <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

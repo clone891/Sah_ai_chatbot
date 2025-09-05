@@ -98,7 +98,14 @@ export const authApi = {
     if (!token) throw new Error("Token not found in response")
     return { token, user: data.user ?? data.profile ?? data }
   },
-  async signup(payload: { name?: string; email: string; password: string }): Promise<AuthResult> {
+  async signup(payload: {
+    username: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirm: string;
+  }): Promise<AuthResult> {
     const data = await request<any>(SIGNUP_PATH, { method: "POST", body: payload, auth: false })
     const token = extractToken(data)
     if (!token) throw new Error("Token not found in response")

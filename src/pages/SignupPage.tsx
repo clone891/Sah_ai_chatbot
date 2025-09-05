@@ -37,17 +37,25 @@ export default function SignupPage() {
   })
 
   const onSubmit = async (values: FormValues) => {
-    setSubmitting(true)
-    try {
-      await signup({ name: `${values.firstName} ${values.lastName}`, email: values.email, password: values.password })
-      toast.success("Account created")
-      navigate("/profile")
-    } catch (e: any) {
-      toast.error(e?.message || "Signup failed")
-    } finally {
-      setSubmitting(false)
-    }
+  setSubmitting(true)
+  try {
+    await signup({
+      username: values.username,
+      firstName: values.firstName,   // <-- camelCase
+      lastName: values.lastName,     // <-- camelCase
+      email: values.email,
+      password: values.password,
+      confirm: values.confirm,
+    })
+    toast.success("Account created")
+    navigate("/profile")
+  } catch (e: any) {
+    toast.error(e?.message || "Signup failed")
+  } finally {
+    setSubmitting(false)
   }
+}
+
 
   return (
     <div className="h-screen w-full grid place-items-center p-4 relative">
