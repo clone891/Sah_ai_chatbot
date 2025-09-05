@@ -61,41 +61,41 @@ export default function SignupPage() {
           className="h-8 w-auto"
         />
       </div>
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-xs rounded-2xl border p-4 backdrop-blur-sm gradient-card shadow-[var(--shadow-medium)]">
-        <h1 className="text-2xl font-bold mb-1">Create account</h1>
-        <p className="text-sm text-muted-foreground mb-6">Join Sahai</p>
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-xs rounded-2xl border p-3 backdrop-blur-sm gradient-card shadow-[var(--shadow-medium)]">
+        <h1 className="text-xl font-bold mb-1">Create account</h1>
+        <p className="text-xs text-muted-foreground mb-4">Join Sahai</p>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
           <div className="space-y-2">
             <Label htmlFor="username">Username</Label>
-            <Input id="username" placeholder="Choose a username" {...register("username")} />
+            <Input id="username" className="h-10" placeholder="Choose a username" {...register("username")} />
             {errors.username && <p className="text-sm text-destructive">{errors.username.message}</p>}
           </div>
           <div className="space-y-2">
             <Label htmlFor="firstName">First name</Label>
-            <Input id="firstName" placeholder="Your first name" {...register("firstName")} />
+            <Input id="firstName" className="h-10" placeholder="Your first name" {...register("firstName")} />
             {errors.firstName && <p className="text-sm text-destructive">{errors.firstName.message}</p>}
           </div>
           <div className="space-y-2">
             <Label htmlFor="lastName">Last name</Label>
-            <Input id="lastName" placeholder="Your last name" {...register("lastName")} />
+            <Input id="lastName" className="h-10" placeholder="Your last name" {...register("lastName")} />
             {errors.lastName && <p className="text-sm text-destructive">{errors.lastName.message}</p>}
           </div>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="you@example.com" {...register("email")} />
+            <Input id="email" type="email" className="h-10" placeholder="you@example.com" {...register("email")} />
             {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" placeholder="••••••••" {...register("password")} />
+            <Input id="password" type="password" className="h-10" placeholder="••••••••" {...register("password")} />
             {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="confirm">Confirm password</Label>
-            <Input id="confirm" type="password" placeholder="••••••••" {...register("confirm")} />
+            <Input id="confirm" type="password" className="h-10" placeholder="••••••••" {...register("confirm")} />
             {errors.confirm && <p className="text-sm text-destructive">{errors.confirm.message}</p>}
           </div>
 
