@@ -54,7 +54,7 @@ export default function SignupPage() {
       <div className="absolute top-4 left-4">
         <Button variant="ghost" onClick={() => navigate("/")}> <ArrowLeft className="h-4 w-4 mr-2" /> Back</Button>
       </div>
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-sm rounded-2xl border p-6 backdrop-blur-sm gradient-card shadow-[var(--shadow-medium)]">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-xs rounded-2xl border p-4 backdrop-blur-sm gradient-card shadow-[var(--shadow-medium)]">
         <img
           src="https://cdn.builder.io/api/v1/image/assets%2F32a7517d76b941f98c61312e3af1852a%2F53b5b2631496451f9497061e0706b217?format=webp&width=800"
           alt="Sahai logo"
