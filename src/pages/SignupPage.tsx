@@ -44,7 +44,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="h-[calc(100vh-64px)] w-full grid place-items-center p-4">
+    <div className="h-screen w-full grid place-items-center p-4">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md rounded-2xl border p-6 backdrop-blur-sm gradient-card shadow-[var(--shadow-medium)]">
         <h1 className="text-2xl font-bold mb-1">Create account</h1>
         <p className="text-sm text-muted-foreground mb-6">Join Sahai</p>

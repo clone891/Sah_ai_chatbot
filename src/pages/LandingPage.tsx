@@ -30,7 +30,7 @@ const LandingPage = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="relative h-[calc(100vh-64px)] w-full overflow-hidden">
+    <div className="relative h-screen w-full overflow-hidden">
       {/* Animated multilingual background */}
       <div className="absolute inset-0 select-none pointer-events-none">
         {instances.map((i) => {
